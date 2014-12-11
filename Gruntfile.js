@@ -21,8 +21,8 @@ module.exports = function (grunt) {
             }
         },
         clean: {
-            css: ["public/stylesheets/*.min.css"],
-            js: ["public/javascripts/*.min.js"]
+            css: ['public/stylesheets/*.min.css'],
+            js: ['public/javascripts/*.min.js']
         },
         copy: {
             main: {
@@ -30,13 +30,13 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         cwd: 'bower_components/bootstrap/dist/',
-                        src: "**",
+                        src: '**',
                         dest: 'public/lib/bootstrap'
                     },
                     {
                         expand: true,
                         cwd: 'bower_components/jquery/dist/',
-                        src: "**",
+                        src: '**',
                         dest: 'public/lib/jquery'
                     }
                 ]

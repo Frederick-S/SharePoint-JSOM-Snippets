@@ -2,6 +2,32 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/lib/bootstrap/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.min.css')
   body
+    nav(class='navbar navbar-default', role='navigation')
+      div.container
+        div.navbar-header
+          button(type="button", class="navbar-toggle", data-toggle="collapse", data-target=".navbar-bootsnipp-collapse")
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          div.animbrand
+            a(href='/', class='navbar-brand') Memory
+        div.collapse.navbar-collapse.navbar-bootsnipp-collapse
+          ul.nav.navbar-nav
+            li
+              a(href='/') Home
+            li
+              a(href='/courses') Courses
+          ul.nav.navbar-nav.navbar-right
+            li
+              a(href='/signup') Sign up
+            li
+              a(href='/login') Login
+            
     block content
+    
+    script(src='/lib/jquery/jquery.min.js')
+    script(src='/lib/bootstrap/js/bootstrap.min.js')
