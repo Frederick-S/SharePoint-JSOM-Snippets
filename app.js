@@ -9,8 +9,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var config = require('./config');
-
-var routes = require('./routes/index');
+var routes = require('./routes');
 
 var app = express();
 
@@ -64,6 +63,5 @@ app.use(function (err, req, res, next) {
         error: {}
     });
 });
-
 
 module.exports = app;

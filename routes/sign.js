@@ -3,12 +3,20 @@
 var config = require('../config');
 var User = require('../proxy').User;
 
-exports.signup = function (req, res, next) {
+exports.showSignup = function (req, res) {
+    res.render('sign/signup');
+};
+
+exports.signup = function (req, res) {
     var body = req.body;
     var name = body.name;
     var email = body.email;
     var password = body.password;
-    var rePassword = body.rePassword;
+    var passwordConfirmation = body.passwordConfirmation;
     
     
+};
+
+exports.showLogin = function (req, res) {
+    res.render('sign/login');
 };
