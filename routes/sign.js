@@ -1,23 +1,43 @@
 'use strict';
 
 var config = require('../config');
+var validator = require('validator');
+var eventproxy = require('eventproxy');
 var User = require('../proxy').User;
 
 exports.showSignup = function (req, res) {
     res.render('sign/signup');
 };
 
-exports.signup = function (req, res) {
+exports.signup = function (req, res, next) {
     var body = req.body;
-    var name = body.name;
-    var email = body.email;
-    var password = body.password;
-    var passwordConfirmation = body.passwordConfirmation;
+    var name = validator.trim(body.name);
+    var email = validator.trim(body.email);
+    var password = validator.trim(body.password);
+    var passwordConfirmation = validator.trim(body.passwordConfirmation);
+
+    var signupError = 'signupError';
+    var ep = new eventproxy();
+    ep.fail(next);
+    ep.on(signupError, function (error) {
+        res.render('sign/signup', { error: error });
+    });
     
-    console.log(name);
-    console.log(email);
-    console.log(password);
-    console.log(passwordConfirmation);
+    var isSignupInfoComplete = [name, email, password, passwordConfirmation].every(function (item) {
+        return item !== '';
+    });
+    
+    if (!isSignupInfoComplete) {
+        return ep.emit(signupError, 'Sign up information is not complete.');
+    }
+    
+    if (!validator.isEmail(email)) {
+        return ep.emit(signupError, 'The E-mail address is invalid.');
+    }
+    
+    if (password !== passwordConfirmation) {
+        return ep.emit(signupError, 'Password doesn\'t match the confirmation.');
+    }
 };
 
 exports.showLogin = function (req, res) {
