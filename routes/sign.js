@@ -6,7 +6,11 @@ var eventproxy = require('eventproxy');
 var User = require('../proxy').User;
 
 exports.showSignup = function (req, res) {
-    res.render('sign/signup');
+    if (req.session.user) {
+        res.redirect('/');
+    } else {
+        res.render('sign/signup', { user: req.session.user });
+    }
 };
 
 exports.signup = function (req, res, next) {
@@ -20,7 +24,7 @@ exports.signup = function (req, res, next) {
     var ep = new eventproxy();
     ep.fail(next);
     ep.on(signupError, function (error) {
-        res.render('sign/signup', { error: error });
+        res.render('sign/signup', { error: error, user: req.session.user });
     });
     
     var isSignupInfoComplete = [name, email, password, passwordConfirmation].every(function (item) {
@@ -64,24 +68,28 @@ exports.signup = function (req, res, next) {
     });
 };
 
-exports.showLogin = function (req, res) {
-    res.render('sign/login');
+exports.showSignin = function (req, res) {
+    if (req.session.user) {
+        res.redirect('/');
+    } else {
+        res.render('sign/signin', { user: req.session.user });
+    }
 };
 
-exports.login = function (req, res, next) {
+exports.signin = function (req, res, next) {
     var body = req.body;
     var name = validator.trim(body.name);
     var password = validator.trim(body.password);
     
-    var loginError = 'loginError';
+    var signinError = 'signinError';
     var ep = new eventproxy();
     ep.fail(next);
-    ep.on(loginError, function (error) {
-        res.render('sign/login', { error: error });
+    ep.on(signinError, function (error) {
+        res.render('sign/signin', { error: error, user: req.session.user });
     });
     
     if (name === '' || password === '') {
-        return ep.emit(loginError, 'Login information is not complete.');
+        return ep.emit(signinError, 'Sign in information is not complete.');
     }
     
     User.getUserByName(name, function (error, user) {
@@ -90,12 +98,12 @@ exports.login = function (req, res, next) {
         }
         
         if (!user) {
-            return ep.emit(loginError, 'Incorrect name or password.');
+            return ep.emit(signinError, 'Incorrect name or password.');
         }
         
         bcrypt.compare(password, user.password, ep.done(function (equal) {
             if (!equal) {
-                return ep.emit(loginError, 'Incorrect name or password.');
+                return ep.emit(signinError, 'Incorrect name or password.');
             }
             
             req.session.user = user;
@@ -104,3 +112,8 @@ exports.login = function (req, res, next) {
         }));
     });
 }
+
+exports.signout = function (req, res) {
+    req.session.destroy();
+    res.redirect('/');
+};

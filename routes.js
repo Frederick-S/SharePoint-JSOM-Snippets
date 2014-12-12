@@ -13,8 +13,11 @@ router.get('/', index.index);
 router.get('/signup', sign.showSignup);
 router.post('/signup', sign.signup);
 
-// Log in
-router.get('/login', sign.showLogin);
-router.post('/login', sign.login);
+// Sign in
+router.get('/signin', sign.showSignin);
+router.post('/signin', sign.signin);
+
+// Sign out
+router.get('/signout', sign.signout);
 
 module.exports = router;
