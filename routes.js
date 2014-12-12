@@ -11,9 +11,10 @@ router.get('/', index.index);
 
 // Sign up
 router.get('/signup', sign.showSignup);
-router.post('/signup', sign.signup)
+router.post('/signup', sign.signup);
 
 // Log in
 router.get('/login', sign.showLogin);
+router.post('/login', sign.login);
 
 module.exports = router;

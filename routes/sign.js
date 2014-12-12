@@ -1,6 +1,5 @@
 'use strict';
 
-var config = require('../config');
 var bcrypt = require('bcrypt');
 var validator = require('validator');
 var eventproxy = require('eventproxy');
@@ -68,3 +67,40 @@ exports.signup = function (req, res, next) {
 exports.showLogin = function (req, res) {
     res.render('sign/login');
 };
+
+exports.login = function (req, res, next) {
+    var body = req.body;
+    var name = validator.trim(body.name);
+    var password = validator.trim(body.password);
+    
+    var loginError = 'loginError';
+    var ep = new eventproxy();
+    ep.fail(next);
+    ep.on(loginError, function (error) {
+        res.render('sign/login', { error: error });
+    });
+    
+    if (name === '' || password === '') {
+        return ep.emit(loginError, 'Login information is not complete.');
+    }
+    
+    User.getUserByName(name, function (error, user) {
+        if (error) {
+            return next(error);
+        }
+        
+        if (!user) {
+            return ep.emit(loginError, 'Incorrect name or password.');
+        }
+        
+        bcrypt.compare(password, user.password, ep.done(function (equal) {
+            if (!equal) {
+                return ep.emit(loginError, 'Incorrect name or password.');
+            }
+            
+            req.session.user = user;
+            
+            return res.redirect('/');
+        }));
+    });
+}
