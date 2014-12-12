@@ -18,7 +18,8 @@
     "express-session": "~1.9.3",
     "connect-mongo": "~0.4.1",
     "validator": "~3.23.0",
-    "eventproxy": "~0.3.1"
+    "eventproxy": "~0.3.1",
+    "bcrypt": "~0.8.0"
   },
   "devDependencies": {
     "jshint": "~2.5.10",

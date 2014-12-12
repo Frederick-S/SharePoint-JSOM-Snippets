@@ -1,6 +1,7 @@
 'use strict';
 
 var config = require('../config');
+var bcrypt = require('bcrypt');
 var validator = require('validator');
 var eventproxy = require('eventproxy');
 var User = require('../proxy').User;
@@ -38,6 +39,30 @@ exports.signup = function (req, res, next) {
     if (password !== passwordConfirmation) {
         return ep.emit(signupError, 'Password doesn\'t match the confirmation.');
     }
+    
+    User.getUsersByQuery({
+        '$or': [{ name: name }, { email: email }]
+    }, {}, function (error, users) {
+        if (error) {
+            return next(error);
+        }
+        
+        if (users.length > 0) {
+            return ep.emit(signupError, 'The name or the e-mail address is already taken.');
+        }
+        
+        bcrypt.hash(password, 10, ep.done(function (hashedPassword) {
+            User.newAndSave({ name: name, email: email, password: hashedPassword }, function (error, user) {
+                if (error) {
+                    return next(error);
+                }
+
+                req.session.user = user;
+                
+                return res.redirect('/');
+            });
+        }));
+    });
 };
 
 exports.showLogin = function (req, res) {

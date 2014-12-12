@@ -26,7 +26,7 @@ app.use(cookieParser(config.sessionSecret));
 app.use(session({
     secret: config.sessionSecret,
     store: new MongoStore({ url: config.db }),
-    resave: true,
+    resave: false,
     saveUninitialized: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
