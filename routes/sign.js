@@ -14,7 +14,10 @@ exports.signup = function (req, res) {
     var password = body.password;
     var passwordConfirmation = body.passwordConfirmation;
     
-    
+    console.log(name);
+    console.log(email);
+    console.log(password);
+    console.log(passwordConfirmation);
 };
 
 exports.showLogin = function (req, res) {
