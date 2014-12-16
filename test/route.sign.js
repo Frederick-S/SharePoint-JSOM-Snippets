@@ -133,14 +133,23 @@ describe('Route: sign in', function () {
     });
     
     it('Should return error message: Incorrect name or password.', function (done) {
-        request.post('/signin')
+        request.post('/signup')
             .send({
                 name: name,
-                password: 'abc'
+                email: email,
+                password: password,
+                passwordConfirmation: password
             })
             .expect(200, function (error, response) {
-                response.text.should.containEql('Incorrect name or password.');
-                done(error);
+                request.post('/signin')
+                    .send({
+                        name: name,
+                        password: 'abc',
+                    })
+                    .expect(200, function (error, response) {
+                        response.text.should.containEql('Incorrect name or password.');
+                        done();
+                    });
             });
     });
     
