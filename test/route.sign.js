@@ -71,7 +71,7 @@ describe('Route: sign up', function () {
             });
     });
     
-    it('The name or the e-mail address is already taken.', function (done) {
+    it('Should return error message: The name or the e-mail address is already taken.', function (done) {
         request.post('/signup')
             .send({
                 name: name,
@@ -120,7 +120,19 @@ describe('Route: sign in', function () {
             });
     });
     
-    it('Should return error message: Incorrect name or password..', function (done) {
+    it('Should return error message: Incorrect name or password.', function (done) {
+        request.post('/signin')
+            .send({
+                name: 'abc',
+                password: password
+            })
+            .expect(200, function (error, response) {
+                response.text.should.containEql('Incorrect name or password.');
+                done(error);
+            });
+    });
+    
+    it('Should return error message: Incorrect name or password.', function (done) {
         request.post('/signin')
             .send({
                 name: name,
@@ -132,7 +144,7 @@ describe('Route: sign in', function () {
             });
     });
     
-    it('Should sign in successfully and redirect to /.', function (done) {
+    it('Should sign in successfully and redirect to /', function (done) {
         request.post('/signup')
             .send({
                 name: name,
@@ -150,6 +162,16 @@ describe('Route: sign in', function () {
                         response.text.should.containEql('Redirecting to /');
                         done();
                     });
+            });
+    });
+});
+
+describe('Route: sign out', function () {
+    it('Should sign out successfully and redirect to /', function (done) {
+        request.get('/signout')
+            .expect(302, function (error, response) {
+                response.text.should.containEql('Redirecting to /');
+                done(error);
             });
     });
 });
