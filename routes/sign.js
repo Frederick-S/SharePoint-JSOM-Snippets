@@ -3,7 +3,7 @@
 var bcrypt = require('bcrypt');
 var validator = require('validator');
 var eventproxy = require('eventproxy');
-var User = require('../proxy').User;
+var User = require('../models').User;
 
 exports.showSignup = function (req, res) {
     if (req.session.user) {
