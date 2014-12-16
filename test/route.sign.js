@@ -2,16 +2,154 @@ var app = require('../app');
 var request = require('supertest')(app);
 var should = require('should');
 
-describe('signup', function () {
-    var user = 'test' + new Date();
-    var email = user + '@test.com';
+describe('Route: sign up', function () {
+    var name = 'testuser' + (+new Date());
+    var email = name + '@test.com';
     var password = 'password';
     
     it('Should visit sign up page', function (done) {
         request.get('/signup')
-        .expect(200, function (error, response) {
-            response.text.should.containEql('Sign up');
-            done(error);
-        });
+            .expect(200, function (error, response) {
+                response.text.should.containEql('Sign up');
+                done(error);
+            });
+    });
+    
+    it('Should return error message: Sign up information is not complete.', function (done) {
+        request.post('/signup')
+            .send({
+                name: name,
+                email: email,
+                password: password,
+                passwordConfirmation: ''
+            })
+            .expect(200, function (error, response) {
+                response.text.should.containEql('Sign up information is not complete.');
+                done();
+            });
+    });
+    
+    it('Should return error message: The E-mail address is invalid.', function (done) {
+        request.post('/signup')
+            .send({
+                name: name,
+                email: 'abc',
+                password: password,
+                passwordConfirmation: password
+            })
+            .expect(200, function (error, response) {
+                response.text.should.containEql('The E-mail address is invalid.');
+                done();
+            });
+    });
+    
+    it('Should return error message: Password doesn\'t match the confirmation.', function (done) {
+        request.post('/signup')
+            .send({
+                name: name,
+                email: email,
+                password: password,
+                passwordConfirmation: 'abc'
+            })
+            .expect(200, function (error, response) {
+                response.text.should.containEql('Password doesn\'t match the confirmation.');
+                done();
+            });
+    });
+    
+    it('Should sign up successfully and redirect to /', function (done) {
+        request.post('/signup')
+            .send({
+                name: name,
+                email: email,
+                password: password,
+                passwordConfirmation: password
+            })
+            .expect(200, function (error, response) {
+                response.text.should.containEql('Redirecting to /');
+                done();
+            });
+    });
+    
+    it('The name or the e-mail address is already taken.', function (done) {
+        request.post('/signup')
+            .send({
+                name: name,
+                email: email,
+                password: password,
+                passwordConfirmation: password
+            })
+            .expect(200, function (error, response) {
+                request.post('/signup')
+                    .send({
+                        name: name,
+                        email: email,
+                        password: password,
+                        passwordConfirmation: password
+                    })
+                    .expect(200, function (error, response) {
+                        response.text.should.containEql('The name or the e-mail address is already taken.');
+                        done();
+                    });
+            });
+    });
+});
+
+describe('Route: sign in', function () {
+    var name = 'testuser' + (+new Date());
+    var email = name + '@test.com';
+    var password = 'password';
+    
+    it('Should visit sign in page', function (done) {
+        request.get('/signup')
+            .expect(200, function (error, response) {
+                response.text.should.containEql('Sign in');
+                done(error);
+            });
+    });
+    
+    it('Should return error message: Sign in information is not complete.', function (done) {
+        request.post('/signin')
+            .send({
+                name: name,
+                password: ''
+            })
+            .expect(200, function (error, response) {
+                response.text.should.containEql('Sign in information is not complete');
+                done(error);
+            });
+    });
+    
+    it('Should return error message: Incorrect name or password..', function (done) {
+        request.post('/signin')
+            .send({
+                name: name,
+                password: 'abc'
+            })
+            .expect(200, function (error, response) {
+                response.text.should.containEql('Incorrect name or password.');
+                done(error);
+            });
+    });
+    
+    it('Should sign in successfully and redirect to /.', function (done) {
+        request.post('/signup')
+            .send({
+                name: name,
+                email: email,
+                password: password,
+                passwordConfirmation: password
+            })
+            .expect(200, function (error, response) {
+                request.post('/signin')
+                    .send({
+                        name: name,
+                        password: password,
+                    })
+                    .expect(200, function (error, response) {
+                        response.text.should.containEql('Redirecting to /');
+                        done();
+                    });
+            });
     });
 });
