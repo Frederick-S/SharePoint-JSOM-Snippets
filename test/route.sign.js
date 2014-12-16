@@ -101,7 +101,7 @@ describe('Route: sign in', function () {
     var password = 'password';
     
     it('Should visit sign in page', function (done) {
-        request.get('/signup')
+        request.get('/signin')
             .expect(200, function (error, response) {
                 response.text.should.containEql('Sign in');
                 done(error);
