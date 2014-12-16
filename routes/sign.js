@@ -111,7 +111,7 @@ exports.signin = function (req, res, next) {
             return res.redirect('/');
         }));
     });
-}
+};
 
 exports.signout = function (req, res) {
     req.session.destroy();

@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "jshint": "jshint ."
+    "jshint": "jshint .",
+    "test": "mocha --reporter spec test/",
+    "test-coveralls": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter spec test/"
   },
   "dependencies": {
     "express": "~4.9.0",
@@ -26,7 +28,8 @@
     "mocha": "~2.0.1",
     "coveralls": "~2.11.2",
     "istanbul": "~0.3.5",
-    "mocha-lcov-reporter": "~0.0.1",
+    "supertest": "~0.15.0",
+    "should": "~4.4.1",
     "grunt": "~0.4.1",
     "grunt-contrib-cssmin": "~0.10.0",
     "grunt-contrib-uglify": "~0.6.0",
