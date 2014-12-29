@@ -5,7 +5,9 @@ var validator = require('validator');
 var eventproxy = require('eventproxy');
 var User = require('../models').User;
 
-exports.showSignup = function (req, res) {
+var signup = {};
+
+signup.get = function (req, res) {
     if (req.session.user) {
         res.redirect('/');
     } else {
@@ -13,7 +15,7 @@ exports.showSignup = function (req, res) {
     }
 };
 
-exports.signup = function (req, res, next) {
+signup.post = function (req, res, next) {
     var body = req.body;
     var name = validator.trim(body.name);
     var email = validator.trim(body.email);
@@ -68,7 +70,9 @@ exports.signup = function (req, res, next) {
     });
 };
 
-exports.showSignin = function (req, res) {
+var signin = {};
+
+signin.get = function (req, res) {
     if (req.session.user) {
         res.redirect('/');
     } else {
@@ -76,7 +80,7 @@ exports.showSignin = function (req, res) {
     }
 };
 
-exports.signin = function (req, res, next) {
+signin.post = function (req, res, next) {
     var body = req.body;
     var name = validator.trim(body.name);
     var password = validator.trim(body.password);
@@ -113,7 +117,13 @@ exports.signin = function (req, res, next) {
     });
 };
 
-exports.signout = function (req, res) {
+var signout = {};
+
+signout.get = function (req, res) {
     req.session.destroy();
     res.redirect('/');
 };
+
+exports.signup = signup;
+exports.signin = signin;
+exports.signout = signout;

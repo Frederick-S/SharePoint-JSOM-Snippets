@@ -2,11 +2,11 @@ var app = require('../app');
 var request = require('supertest')(app);
 var should = require('should');
 
+var name = 'testuser' + (+new Date());
+var email = name + '@test.com';
+var password = 'password';
+
 describe('Route: sign up', function () {
-    var name = 'testuser' + (+new Date());
-    var email = name + '@test.com';
-    var password = 'password';
-    
     it('Should visit sign up page', function (done) {
         request.get('/signup')
             .expect(200, function (error, response) {
@@ -80,26 +80,13 @@ describe('Route: sign up', function () {
                 passwordConfirmation: password
             })
             .expect(200, function (error, response) {
-                request.post('/signup')
-                    .send({
-                        name: name,
-                        email: email,
-                        password: password,
-                        passwordConfirmation: password
-                    })
-                    .expect(200, function (error, response) {
-                        response.text.should.containEql('The name or the e-mail address is already taken.');
-                        done();
-                    });
+                response.text.should.containEql('The name or the e-mail address is already taken.');
+                done();
             });
     });
 });
 
 describe('Route: sign in', function () {
-    var name = 'testuser' + (+new Date());
-    var email = name + '@test.com';
-    var password = 'password';
-    
     it('Should visit sign in page', function (done) {
         request.get('/signin')
             .expect(200, function (error, response) {
@@ -133,44 +120,26 @@ describe('Route: sign in', function () {
     });
     
     it('Should return error message: Incorrect name or password.', function (done) {
-        request.post('/signup')
+        request.post('/signin')
             .send({
                 name: name,
-                email: email,
-                password: password,
-                passwordConfirmation: password
+                password: 'abc',
             })
             .expect(200, function (error, response) {
-                request.post('/signin')
-                    .send({
-                        name: name,
-                        password: 'abc',
-                    })
-                    .expect(200, function (error, response) {
-                        response.text.should.containEql('Incorrect name or password.');
-                        done();
-                    });
+                response.text.should.containEql('Incorrect name or password.');
+                done();
             });
     });
     
     it('Should sign in successfully and redirect to /', function (done) {
-        request.post('/signup')
+        request.post('/signin')
             .send({
                 name: name,
-                email: email,
                 password: password,
-                passwordConfirmation: password
             })
             .expect(200, function (error, response) {
-                request.post('/signin')
-                    .send({
-                        name: name,
-                        password: password,
-                    })
-                    .expect(200, function (error, response) {
-                        response.text.should.containEql('Redirecting to /');
-                        done();
-                    });
+                response.text.should.containEql('Redirecting to /');
+                done();
             });
     });
 });
