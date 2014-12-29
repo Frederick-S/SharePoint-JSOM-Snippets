@@ -2,9 +2,10 @@ var app = require('../app');
 var request = require('supertest')(app);
 var superagent = require('superagent');
 var agent = superagent.agent();
+var name = 'testuser' + (+new Date());
 var account = {
-    name: 'testuser' + (+new Date()),
-    email: this.name + '@test.com',
+    name: name,
+    email: name + '@test.com',
     password: 'password',
     passwordConfirmation: 'password'
 };

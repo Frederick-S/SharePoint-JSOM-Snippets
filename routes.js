@@ -21,7 +21,11 @@ router.post('/signin', sign.signin.post);
 // Sign out
 router.get('/signout', sign.signout.get);
 
-// Course
+// Create course
 router.get('/course/create', course.create.get);
+router.post('/course/create', course.create.post);
+
+// View course
+router.get('/course/:id(\\d+)', course.course.get);
 
 module.exports = router;

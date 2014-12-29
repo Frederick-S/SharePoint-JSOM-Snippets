@@ -13,11 +13,11 @@ mongoose.model('User', UserSchema);
 
 var User = mongoose.model('User');
 
-exports.getUserByName = function (name, callback) {
+exports.getByName = function (name, callback) {
     User.findOne({ 'name': name }, callback);
 };
 
-exports.getUsersByQuery = function (query, option, callback) {
+exports.getByQuery = function (query, option, callback) {
     User.find(query, '', option, callback);
 };
 

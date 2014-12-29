@@ -5,6 +5,8 @@ var util = require('./util');
 
 var agent;
 var req;
+var courseName = 'TestCourse' + (+new Date());
+var courseId;
 
 before(function (done) {
     util.signup(request, function (signupAgent) {
@@ -18,8 +20,32 @@ describe('Course: create', function () {
         req = request.get('/course/create');
         agent.attachCookies(req);
         req.expect(200, function (error, response) {
-            response.text.should.containEql('Create a Course');
+            response.text.should.containEql('Create Course');
             done(error);
         });
+    });
+    
+    it('Should return error message: Course name is required.', function (done) {
+        req = request.post('/course/create');
+        agent.attachCookies(req);
+        req.send({
+                name: '',
+            })
+            .expect(200, function (error, response) {
+                response.text.should.containEql('Course name is required.');
+                done();
+            });
+    });
+    
+    it('Should create course successfully and redirect to course page', function (done) {
+        req = request.post('/course/create');
+        agent.attachCookies(req);
+        req.send({
+                name: courseName
+            })
+            .expect(200, function (error, response) {
+                response.text.should.containEql('Redirecting to /course/');
+                done();
+            });
     });
 });

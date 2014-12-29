@@ -45,7 +45,7 @@ signup.post = function (req, res, next) {
         return ep.emit(signupError, 'Password doesn\'t match the confirmation.');
     }
     
-    User.getUsersByQuery({
+    User.getByQuery({
         '$or': [{ name: name }, { email: email }]
     }, {}, function (error, users) {
         if (error) {
@@ -96,7 +96,7 @@ signin.post = function (req, res, next) {
         return ep.emit(signinError, 'Sign in information is not complete.');
     }
     
-    User.getUserByName(name, function (error, user) {
+    User.getByName(name, function (error, user) {
         if (error) {
             return next(error);
         }

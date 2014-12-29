@@ -4,10 +4,9 @@ block content
   div.container
     div.row
       div.col-md-4.col-md-offset-4
-        h1 Create a Course
         if error
           div.alert.alert-danger #{error}
-        form(method='POST' action='/signup', accept-charset='UTF-8', role='form', class='form')
+        form(method='POST' action='/course/create', accept-charset='UTF-8', role='form', class='form')
           div.form-group
             input(class='form-control', placeholder='Name', name='name', type='text')
           input(class='btn btn-lg btn-primary btn-block', type='submit', value='Create Course')

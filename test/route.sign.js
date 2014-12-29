@@ -2,7 +2,7 @@ var app = require('../app');
 var request = require('supertest')(app);
 var should = require('should');
 
-var name = 'testuser' + (+new Date());
+var name = 'TestUser' + (+new Date());
 var email = name + '@test.com';
 var password = 'password';
 

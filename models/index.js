@@ -12,5 +12,7 @@ mongoose.connect(config.db, function (error) {
 });
 
 var User = require('./user');
+var Course = require('./course');
 
 exports.User = User;
+exports.Course = Course;
