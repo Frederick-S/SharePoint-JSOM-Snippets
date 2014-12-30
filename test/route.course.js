@@ -6,7 +6,6 @@ var util = require('./util');
 var agent;
 var req;
 var courseName = 'TestCourse' + (+new Date());
-var courseId;
 
 before(function (done) {
     util.signup(request, function (signupAgent) {

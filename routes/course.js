@@ -55,8 +55,12 @@ course.get = function (req, res, next) {
         if (error) {
             next(error);
         }
-
-        res.render('course/course', { user: req.session.user, name: c.name, created: c.created, createdBy: c.createdBy });
+        
+        if (c) {
+            res.render('course/course', { user: req.session.user, id: id, name: c.name, created: c.created, createdBy: c.createdBy });
+        } else {
+            res.render('course/course', { user: req.session.user, id: id });
+        }
     });
 };
 

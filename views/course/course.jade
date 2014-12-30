@@ -2,4 +2,7 @@ extends ../layout
 
 block content
   div.container
-    h1 #{name}
+    if name
+      h1 #{name}
+    else
+      div(class='alert alert-danger', role='alert') Course #{id} doesn't exist.
