@@ -2,6 +2,7 @@ var app = require('../app');
 var request = require('supertest')(app);
 var should = require('should');
 var util = require('./util');
+var Course = require('../models').Course;
 
 var agent;
 var req;
@@ -48,6 +49,18 @@ describe('Course: create', function () {
                 done();
             });
     });
+    
+    it('Should return error message: Course name is already taken.', function (done) {
+        req = request.post('/course/create');
+        agent.attachCookies(req);
+        req.send({
+                name: courseName,
+            })
+            .expect(200, function (error, response) {
+                response.text.should.containEql('Course name is already taken.');
+                done();
+            });
+    });
 });
 
 describe('Course: view', function () {
@@ -56,6 +69,21 @@ describe('Course: view', function () {
         req.expect(200, function (error, response) {
             response.text.should.containEql('Course 123 doesn\'t exist.');
             done(error);
+        });
+    });
+    
+    it('Should visit course page', function (done) {
+        Course.getByName(courseName, function (error, course) {
+            if (error) {
+                done(error);
+            } else {
+                req = request.get('/course/' + course.id);
+                agent.attachCookies(req);
+                req.expect(200, function (error, response) {
+                    response.text.should.containEql(courseName);
+                    done(error);
+                });
+            }
         });
     });
 });

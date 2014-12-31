@@ -29,19 +29,29 @@ create.post = function (req, res, next) {
         return ep.emit(createCourseError, 'Course name is required.');
     }
     
-    var user = req.session.user;
-    
-    if (!user) {
-        return ep.emit(createCourseError, 'Please sign in first.');
-    }
-    
-    var now = new Date();
-    Course.newAndSave({ id: (+now), name: name, created: now, createdBy: user.name }, function (error, course) {
+    Course.getByName(name, function (error, course) {
         if (error) {
             return next(error);
         }
-
-        return res.redirect('/course/' + course.id);
+        
+        if (course) {
+            return ep.emit(createCourseError, 'Course name is already taken.');
+        }
+        
+        var user = req.session.user;
+    
+        if (!user) {
+            return ep.emit(createCourseError, 'Please sign in first.');
+        }
+        
+        var now = new Date();
+        Course.newAndSave({ id: (+now), name: name, created: now, createdBy: user.name }, function (error, course) {
+            if (error) {
+                return next(error);
+            }
+    
+            return res.redirect('/course/' + course.id);
+        });
     });
 };
 

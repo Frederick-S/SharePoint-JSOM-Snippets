@@ -18,6 +18,10 @@ exports.getById = function (id, callback) {
     Course.findOne({ 'id': id }, callback);
 };
 
+exports.getByName = function (name, callback) {
+    Course.findOne({ 'name': name }, callback);
+};
+
 exports.newAndSave = function (course, callback) {
     var c = new Course();
     c.id = course.id;
