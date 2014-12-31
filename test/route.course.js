@@ -38,6 +38,17 @@ describe('Course: create', function () {
             });
     });
     
+    it('Should return error message: Please sign in first.', function (done) {
+        req = request.post('/course/create');
+        req.send({
+                name: courseName,
+            })
+            .expect(200, function (error, response) {
+                response.text.should.containEql('Please sign in first.');
+                done();
+            });
+    });
+    
     it('Should create course successfully and redirect to course page', function (done) {
         req = request.post('/course/create');
         agent.attachCookies(req);
