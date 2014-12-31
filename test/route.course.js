@@ -5,6 +5,7 @@ var util = require('./util');
 
 var agent;
 var req;
+var courseId;
 var courseName = 'TestCourse' + (+new Date());
 
 before(function (done) {
@@ -46,5 +47,15 @@ describe('Course: create', function () {
                 response.text.should.containEql('Redirecting to /course/');
                 done();
             });
+    });
+});
+
+describe('Course: view', function () {
+    it('Should return error message: Course 123 doesn\'t exist.', function (done) {
+        req = request.get('/course/123');
+        req.expect(200, function (error, response) {
+            response.text.should.containEql('Course 123 doesn\'t exist.');
+            done(error);
+        });
     });
 });

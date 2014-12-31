@@ -45,9 +45,9 @@ create.post = function (req, res, next) {
     });
 };
 
-var course = {};
+var view = {};
 
-course.get = function (req, res, next) {
+view.get = function (req, res, next) {
     var id = req.params.id;
     id = parseInt(id);
 
@@ -65,4 +65,4 @@ course.get = function (req, res, next) {
 };
 
 exports.create = create;
-exports.course = course;
+exports.view = view;

@@ -26,6 +26,6 @@ router.get('/course/create', course.create.get);
 router.post('/course/create', course.create.post);
 
 // View course
-router.get('/course/:id(\\d+)', course.course.get);
+router.get('/course/:id(\\d+)', course.view.get);
 
 module.exports = router;
