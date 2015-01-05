@@ -28,4 +28,7 @@ router.post('/course/create', course.create.post);
 // View course
 router.get('/course/:id(\\d+)', course.view.get);
 
+// Edit course
+router.get('/course/:id(\\d+)/edit', course.edit.get);
+
 module.exports = router;
