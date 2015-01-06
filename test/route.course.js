@@ -127,3 +127,30 @@ describe('Course: edit', function () {
         });
     });
 });
+
+describe('Course: edit details', function () {
+    it('Should return error message: Course 123 doesn\'t exist.', function (done) {
+        req = request.get('/course/123/edit/details');
+        req.expect(200, function (error, response) {
+            response.text.should.containEql('Course 123 doesn\'t exist.');
+            done(error);
+        });
+    });
+    
+    it('Should return error message: You are not permitted to edit this course.', function (done) {
+        req = request.get('/course/' + courseId + '/edit/details');
+        req.expect(200, function (error, response) {
+            response.text.should.containEql('You are not permitted to edit this course.');
+            done(error);
+        });
+    });
+    
+    it('Should visit edit course page', function (done) {
+        req = request.get('/course/' + courseId + '/edit/details');
+        agent.attachCookies(req);
+        req.expect(200, function (error, response) {
+            response.text.should.containEql('Details');
+            done(error);
+        });
+    });
+});

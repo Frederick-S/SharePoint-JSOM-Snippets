@@ -10,8 +10,9 @@ block content
           a(href='/course/#{id}/edit', class='btn') Edit Course
       ul(class='nav nav-pills', role='tablist')
         li(role='presentation', class='active')
-          a(href='#') Exercises
+          a(href='/course/#{id}') Exercises
         li(role='presentation')
           a(href='#') TBD
+      hr
     else
       div(class='alert alert-danger', role='alert') Course #{id} doesn't exist.

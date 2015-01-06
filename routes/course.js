@@ -93,6 +93,26 @@ edit.get = function (req, res, next) {
     });
 };
 
+var editDetails = {};
+
+editDetails.get = function (req, res, next) {
+    var id = req.params.id;
+    id = parseInt(id);
+
+    Course.getById(id, function (error, c) {
+        if (error) {
+            next(error);
+        }
+        
+        if (c) {
+            res.render('course/editdetails', { user: req.session.user, id: id, name: c.name, created: c.created, createdBy: c.createdBy });
+        } else {
+            res.render('course/editdetails', { user: req.session.user, id: id });
+        }
+    });
+};
+
 exports.create = create;
 exports.view = view;
 exports.edit = edit;
+exports.editDetails = editDetails;

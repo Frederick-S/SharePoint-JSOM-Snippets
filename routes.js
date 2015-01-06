@@ -30,5 +30,6 @@ router.get('/course/:id(\\d+)', course.view.get);
 
 // Edit course
 router.get('/course/:id(\\d+)/edit', course.edit.get);
+router.get('/course/:id(\\d+)/edit/details', course.editDetails.get);
 
 module.exports = router;
