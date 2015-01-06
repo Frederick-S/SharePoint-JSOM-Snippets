@@ -3,7 +3,7 @@ extends ../layout
 block content
   div.container
     if name
-      h1 #{name}
+      h1 Editing: #{name}
       hr
       if user && user.name === createdBy
         div.pull-right
