@@ -1,12 +1,12 @@
 {
-  "name": "memory",
+  "name": "splogs",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
     "jshint": "jshint .",
     "test": "mocha --reporter spec test/",
-    "test-coveralls": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter spec test/"
+    "coveralls": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter spec test/"
   },
   "dependencies": {
     "express": "~4.9.0",
@@ -15,13 +15,7 @@
     "morgan": "~1.3.0",
     "serve-favicon": "~2.1.3",
     "debug": "~2.0.0",
-    "jade": "~1.6.0",
-    "mongoose": "~3.8.20",
-    "express-session": "~1.9.3",
-    "connect-mongo": "~0.4.1",
-    "validator": "~3.23.0",
-    "eventproxy": "~0.3.1",
-    "bcrypt": "~0.8.0"
+    "jade": "~1.6.0"
   },
   "devDependencies": {
     "jshint": "~2.5.10",
