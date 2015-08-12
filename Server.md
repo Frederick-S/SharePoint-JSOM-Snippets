@@ -12,4 +12,4 @@ clientContext.executeQueryAsync(function (sender, args) {
 });
 ```
 
-You can use this code to check which version of SharePoint is used. But the major version of SharePoint Online and SharePoint On-Premises are different. For SharePoint 2013, the On-Premises version will return 15 and the online version will return 16.
+You can use this code to check the version of SharePoint. But the major version of SharePoint Online and SharePoint On-Premises are different. For SharePoint 2013 On-Premises, it returns 15.x.x.x and the SharePoint 2013 Online will return 16.x.x.x.
