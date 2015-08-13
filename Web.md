@@ -53,7 +53,7 @@ var web = clientContext.get_web();
 clientContext.load(web);
 clientContext.executeQueryAsync(function (sender, args) {
     queryWebContent(web, clientContext, function (webNode) {
-        // do something
+        // Done!
     }, function (sender, args) {
         alert(args.get_message());
     });
