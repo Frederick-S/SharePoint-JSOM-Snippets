@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="68bde026-73e6-4b15-ae2d-94e4d3446197" solutionId="68bde026-73e6-4b15-ae2d-94e4d3446197" resetWebServer="false" sharePointProductVersion="16.0" name="SharePoint_App_JSOM_Snippets_Test" xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel">
+  <features>
+    <featureReference itemId="46c01d1d-ace4-4eb1-804f-8c7c95fa4f45" />
+  </features>
+</package>
