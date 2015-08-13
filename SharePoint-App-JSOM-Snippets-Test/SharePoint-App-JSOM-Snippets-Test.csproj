@@ -56,11 +56,14 @@
       <SharePointProjectItemId>{281962e2-407f-404c-bf68-958be87c0aab}</SharePointProjectItemId>
     </None>
     <Content Include="Pages\Server.aspx" />
+    <Content Include="Pages\Web.aspx" />
     <Content Include="Scripts\Elements.xml" />
     <Content Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\server.js" />
+    <Content Include="Scripts\util.js" />
+    <Content Include="Scripts\web.js" />
     <Content Include="Scripts\_references.js" />
   </ItemGroup>
   <ItemGroup>

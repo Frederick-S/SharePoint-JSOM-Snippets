@@ -7,5 +7,7 @@
     <ProjectItemFile Source="jquery-1.9.1.js" Target="Scripts\" Type="ElementFile" />
     <ProjectItemFile Source="jquery-1.9.1.intellisense.js" Target="Scripts\" Type="ElementFile" />
     <ProjectItemFile Source="server.js" Target="Scripts\" Type="ElementFile" />
+    <ProjectItemFile Source="web.js" Target="Scripts\" Type="ElementFile" />
+    <ProjectItemFile Source="util.js" Target="Scripts\" Type="ElementFile" />
   </Files>
 </ProjectItem>

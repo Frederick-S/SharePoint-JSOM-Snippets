@@ -10,13 +10,15 @@
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="PlaceHolderPageTitleInTitleArea" runat="server">
-    SharePoint JSOM Snippets
+    SharePoint JSOM Snippets - Web Tasks
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="PlaceHolderMain" runat="server">
-    <h2>Table of contents</h2>
-    <ul>
-        <li><a href="Server.aspx">Server tasks</a></li>
-        <li><a href="#" onclick="window.location = 'Web.aspx?' + document.location.href.split('?')[1];">Web tasks</a></li>
-    </ul>
+    <h2>Get all subwebs under host web</h2>
+    <pre id="all-subwebs"></pre>
+    <script type="text/javascript" src="../Scripts/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/_layouts/15/sp.runtime.js"></script>
+    <script type="text/javascript" src="/_layouts/15/sp.js"></script>
+    <script type="text/javascript" src="../Scripts/util.js"></script>
+    <script type="text/javascript" src="../Scripts/web.js"></script>
 </asp:Content>
